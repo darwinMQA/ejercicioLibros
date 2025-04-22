@@ -1,88 +1,86 @@
-const API_AUTHORS = 'http://localhost:3000/authors';
-const listaAutores = document.getElementById('lista-autores');
-const formAutor = document.getElementById('form-autor');
-const formTitleAutor = document.getElementById('form-title-autor');
-const submitButtonAutor = document.getElementById('submit-button-autor');
+const API_GENRE = 'http://localhost:3000/genre';
+const listaGeneros = document.getElementById('lista-generos');
+const formGenero = document.getElementById('form-genero');
+const formTitleGenero = document.getElementById('form-title-genero');
+const submitButtonGenero = document.getElementById('submit-button-genero');
 
-let editandoAutor = false;
-let autorEditandoId = null;
+let editandoGenero = false;
+let generoEditandoId = null;
 
-function cargarAutores() {
-  listaAutores.innerHTML = '';
-  fetch(API_AUTHORS)
+function cargarGeneros() {
+  listaGeneros.innerHTML = '';
+  fetch(API_GENRE)
     .then(res => res.json())
     .then(data => {
-      data.forEach(autor => {
-        console.log('Autor recibido:', autor);
+      data.forEach(genero => {
+        console.log('Genero recibido:', genero);
         
         const item = document.createElement('li');
-        item.innerHTML = `<strong>${autor.NAME} ${autor.SURNAME}</strong>`;
+        item.innerHTML = `<strong>${genero.GENRE}</strong>`;
 
         const btnEliminar = document.createElement('button');
         btnEliminar.textContent = 'Eliminar';
-        btnEliminar.onclick = () => eliminarAutor(autor.ID);
+        btnEliminar.onclick = () => eliminarGenero(genero.ID);
 
         const btnEditar = document.createElement('button');
         btnEditar.textContent = 'Editar';
-        btnEditar.onclick = () => cargarFormularioAutorParaEditar(autor);
+        btnEditar.onclick = () => cargarFormularioGeneroParaEditar(genero);
 
         item.appendChild(btnEliminar);
         item.appendChild(btnEditar);
-        listaAutores.appendChild(item);
+        listaGeneros.appendChild(item);
       });
     });
 }
 
-formAutor.addEventListener('submit', e => {
+formGenero.addEventListener('submit', e => {
   e.preventDefault();
-  console.log("Formulario autor enviado"); // Para debug
+  console.log("Formulario genero enviado"); // Para debug
 
-  const autor = {
-    id: document.getElementById('autor-id').value,
-    name: document.getElementById('name').value,
-    surname: document.getElementById('surname').value
+  const genero = {
+    id: document.getElementById('genero-id').value,
+    genre: document.getElementById('genre').value,
   };
 
-  const metodo = editandoAutor ? 'PUT' : 'POST';
-  const url = editandoAutor ? `${API_AUTHORS}/${autorEditandoId}` : API_AUTHORS;
+  const metodo = editandoGenero ? 'PUT' : 'POST';
+  const url = editandoGenero ? `${API_GENRE}/${generoEditandoId}` : API_GENRE;
 
   fetch(url, {
     method: metodo,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(autor)
+    body: JSON.stringify(genero)
   })
   .then(res => {
     if (res.ok) {
-      formAutor.reset();
-      editandoAutor = false;
-      autorEditandoId = null;
-      formTitleAutor.textContent = 'Agregar Autor';
-      submitButtonAutor.textContent = 'Agregar';
-      cargarAutores();
+      formGenero.reset();
+      editandoGenero = false;
+      generoEditandoId = null;
+      formTitleGenero.textContent = 'Agregar Genero';
+      submitButtonGenero.textContent = 'Agregar';
+      cargarGeneros();
     } else {
-      console.error("Error al guardar autor");
+      console.error("Error al guardar genero");
     }
   });
 });
 
-function eliminarAutor(id) {
-  fetch(`${API_AUTHORS}/${id}`, {
+function eliminarGenero(id) {
+  fetch(`${API_GENRE}/${id}`, {
     method: 'DELETE'
   })
   .then(res => {
-    if (res.ok) cargarAutores();
+    if (res.ok) cargarGeneros();
   });
 }
 
-function cargarFormularioAutorParaEditar(autor) {
-  document.getElementById('autor-id').value = autor.ID;
-  document.getElementById('name').value = autor.NAME;
-  document.getElementById('surname').value = autor.SURNAME;
+function cargarFormularioGeneroParaEditar(genero) {
+  document.getElementById('genero-id').value = genero.ID;
+  document.getElementById('genre').value = genero.GENRE;
 
-  editandoAutor = true;
-  autorEditandoId = autor.ID;
-  formTitleAutor.textContent = 'Editar Autor';
-  submitButtonAutor.textContent = 'Guardar Cambios';
+  editandoGenero = true;
+  generoEditandoId = genero.ID;
+  formTitleGenero.textContent = 'Editar Genero';
+  submitButtonGenero.textContent = 'Guardar Cambios';
 }
 
-cargarAutores();
+cargarGeneros();
