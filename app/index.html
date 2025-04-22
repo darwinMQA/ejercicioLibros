@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Libros</title>
+</head>
+<body>
+  <h1>Listado de Libros</h1>
+  <ul id="lista-libros"></ul>
+
+  <h2 id="form-title">Agregar Libro</h2>
+  <form id="form-libro">
+    <input type="hidden" id="id"> <!-- Campo ID oculto para editar libros -->
+    <input type="text" id="title" placeholder="Título" required>
+    <input type="number" id="rating" placeholder="Calificación" required>
+    <input type="number" id="total_pages" placeholder="Páginas" required>
+    <input type="date" id="published_date" placeholder="Fecha de publicación" required>
+    <input type="number" id="genre_id" placeholder="ID Género" required>
+    <input type="number" id="authors_id" placeholder="ID Autor" required>
+    <button type="submit" id="submit-button">Agregar</button>
+  </form>
+
+  <br><br>
+
+  <h1>Listado de Autores</h1>
+  <ul id="lista-autores"></ul>
+
+  <h2 id="form-title-autor">Agregar Autor</h2>
+  <form id="form-autor">
+    <input type="hidden" id="autor-id"> <!-- Campo ID oculto para editar autores -->
+    <input type="text" id="name" placeholder="Nombre" required>
+    <input type="text" id="surname" placeholder="Apellido" required>
+    <button type="submit" id="submit-button-autor">Agregar</button>
+  </form>
+
+  <script src="scripts/bookScript.js"></script>
+  <script src="scripts/authorScript.js"></script>
+
+</body>
+</html>
