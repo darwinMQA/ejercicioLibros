@@ -45,9 +45,23 @@
     <button type="submit" id="submit-button-genero">Agregar</button>
   </form>
 
+  <br><br>
+
+  <h1>Listado de editoriales</h1>
+  <ul id="lista-editoriales"></ul>
+
+  <h2 id="form-title-editorial">Agregar editorial</h2>
+  <form id="form-editorial">
+    <input type="hidden" id="editorial-id"> <!-- Campo ID oculto -->
+    <input type="text" id="publisher" placeholder="Editorial" required>
+    <input type="number" id="books_id" placeholder="ID Book" required>
+    <button type="submit" id="submit-button-editorial">Agregar</button>
+  </form>
+
   <script src="scripts/bookScript.js"></script>
   <script src="scripts/authorScript.js"></script>
   <script src="scripts/genreScript.js"></script>
+  <script src="scripts/publisherScript.js"></script>
 
 </body>
 </html>
